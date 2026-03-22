@@ -3,11 +3,19 @@ This is the first part of creating the PHY language for Principle of Programming
 
 PHY is a languge to try and help make physics calculations easier for anyone. Since physics has many different variables and formulas this languge it to help make sure to keep track of everything and calculate for the user.
 
-Running Lexer/Parser:
- 1. In your CML want to navigate where the Project/PHY-Language is at
- 2. Once you are there you want to type: py src/phy.py test/valid1.phy (The tests are named valid1-10.phy OR invalid1-5.phy; You can change the test name to whichever you want to try)
+## Architecture:
+<br>Lexer (lexer.py): Converts raw text into a stream of tokens. It uses regular expressions to identify physics-specific literals, such as units (kg, N, meter) and time formats (HH:MM:SS).
 
-Grammar:
+Parser (parser.py): A recursive-descent parser that consumes tokens and organizes them into a tree structure based on our formal grammar. It handles operator precedence (multiplication before addition).
+
+AST (ast_nodes.py): Defines the data structures (nodes) for the Abstract Syntax Tree, allowing the program structure to be represented hierarchically.
+
+## Running Lexer/Parser:
+ 1. In your CML want to navigate where the Project/PHY-Language is at
+ 2. Once you are there you want to type: py src/phy.py test/valid1.phy
+ <br>   Note: (The tests are named valid1-10.phy OR invalid1-5.phy; You can change the test name to whichever you want to try)
+
+## Grammar:
   The grammar for PHY is represented in a way that makes sense with how physics problems are traditionally appraoched.
    <br> &nbsp;&nbsp;&nbsp; program       ::= header? statement*
    <br> &nbsp;&nbsp;&nbsp; header        ::= "givens" "{" assignment* "}"
@@ -19,8 +27,8 @@ Grammar:
    <br> &nbsp;&nbsp;&nbsp; term          ::= factor (("*" | "/") factor)*
    <br> &nbsp;&nbsp;&nbsp; factor        ::= (NUMBER | TIME) UNIT? | IDENTIFIER | "(" expression ")"
 
-How It Should Look:
-  <br> &nbsp;&nbsp;&nbsp; Valid: <br> &nbsp;&nbsp;&nbsp; <img width="389" height="108" alt="image" src="https://github.com/user-attachments/assets/36342121-e493-4202-8062-64060fba47fd" />
+## How It Should Look:
+  ### <br> &nbsp;&nbsp; Valid: <br> &nbsp;&nbsp;&nbsp; <img width="389" height="108" alt="image" src="https://github.com/user-attachments/assets/36342121-e493-4202-8062-64060fba47fd" />
   
-  <br> &nbsp;&nbsp;&nbsp; Invalid:  &nbsp;&nbsp;&nbsp; <img width="1059" height="52" alt="image" src="https://github.com/user-attachments/assets/f440dd09-eaea-44c8-82af-ac1bcd288b2c" />
+  ### <br> &nbsp;&nbsp; Invalid:  &nbsp;&nbsp;&nbsp; <img width="1059" height="52" alt="image" src="https://github.com/user-attachments/assets/f440dd09-eaea-44c8-82af-ac1bcd288b2c" />
 
