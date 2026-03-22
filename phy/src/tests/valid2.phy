@@ -1,0 +1,8 @@
+givens 
+{
+    given mass m = 10kg;
+    given accel g = 9.8meter;
+}
+
+let force f = m * g;
+print f;

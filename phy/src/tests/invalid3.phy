@@ -1,0 +1,1 @@
+let mass 1m = 10kg; // Error: Lexer/Parser won't recognize '1m' as an ID

@@ -1,0 +1,4 @@
+let power p = 100W;
+let temp t = 273k;
+print p;
+print t;

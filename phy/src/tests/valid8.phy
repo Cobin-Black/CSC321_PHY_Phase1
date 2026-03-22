@@ -1,0 +1,4 @@
+given force f = 20N;
+given length d = 5meter;
+let work w = f * d;
+print w;

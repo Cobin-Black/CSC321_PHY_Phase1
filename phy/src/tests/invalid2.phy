@@ -1,0 +1,4 @@
+givens {
+    given mass m = 10kg;
+// Error: Expected RBRACE
+print m;

@@ -1,0 +1,4 @@
+let length width = 5meter;
+let length height = 10meter;
+let length area = (width + height) * 2;
+print area;

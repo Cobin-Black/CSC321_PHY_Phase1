@@ -1,0 +1,4 @@
+let velocity v = 12.5meter;
+let mass m = 0.5kg;
+let energy e = m * v;
+print e;

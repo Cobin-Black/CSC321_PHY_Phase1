@@ -1,0 +1,6 @@
+givens {
+    given mass m1 = 5kg;
+    given mass m2 = 10kg;
+}
+let total = m1 + m2;
+print total;
