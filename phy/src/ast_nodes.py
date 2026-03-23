@@ -1,3 +1,4 @@
+
 class Node:
     """Base class for all nodes."""
     def __str__(self):
