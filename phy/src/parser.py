@@ -88,7 +88,7 @@ class Parser:
             if self.current().type == 'UNIT':
                 unit = self.eat('UNIT').value
             # If it's an IDENTIFIER that SHOULD have been a unit, eat it too!
-            elif self.current().type == 'IDENTIFIER' and self.current().value in ['kg', 'g', 'meter', 'secs', 'N', 'J', 'W']:
+            elif self.current().type == 'IDENTIFIER' and self.current().value in ['kg', 'g', 'meter', 'secs', 'N', 'J', 'W', 'k']:
                 unit = self.eat('IDENTIFIER').value
                 
             return IntegerLiteral(val, unit)
