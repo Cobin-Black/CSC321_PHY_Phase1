@@ -1,3 +1,4 @@
+
 import re
 class Token:
     def __init__(self, type, value):
@@ -16,7 +17,7 @@ class Lexer:
             ('GIVEN', r'\bgiven\b'),
             ('LET', r'\blet\b'),
             # Inside lexer.py rules:
-            ('TYPE_KW', r'\b(mass|accel|velocity|length|power|temp|force)\b'),
+            ('TYPE_KW', r'\b(mass|accel|velocity|length|power|temp|force|time|energy|work)\b'),
             ('TIME_LITERAL', r'\d{1,2}:\d{2}:\d{2}'),
             ('FLOAT_LITERAL', r'\d+\.\d+'),
             ('INT_LITERAL', r'\d+'),
