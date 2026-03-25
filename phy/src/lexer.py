@@ -14,14 +14,16 @@ class Lexer:
             ('WHITESPACE', r'\s+'),
             ('GIVENS', r'\bgivens\b'),
             ('PRINT', r'\bprint\b'),
+            ('FOR', r'\bfor\b'),      # <--- ADD THESE
+            ('IN', r'\bin\b'),
+            ('RANGE', r'\brange\b'),
             ('GIVEN', r'\bgiven\b'),
             ('LET', r'\blet\b'),
-            # Inside lexer.py rules:
-            ('TYPE_KW', r'\b(mass|accel|velocity|length|power|temp|force|time|energy|work)\b'),
+            ('TYPE_KW', r'\b(mass|accel|velocity|length|power|temp|force)\b'),
             ('TIME_LITERAL', r'\d{1,2}:\d{2}:\d{2}'),
             ('FLOAT_LITERAL', r'\d+\.\d+'),
             ('INT_LITERAL', r'\d+'),
-            ('UNIT', r'\b(kg|g|secs|J|N|meter|k|W)\b'), 
+            ('UNIT', r'\b(kg|g|secs|J|N|meter|k|W)\b'),
             ('IDENTIFIER', r'[a-zA-Z_][a-zA-Z0-9_]*'),
             ('EQUALS', r'='),
             ('PLUS', r'\+'),
@@ -34,7 +36,6 @@ class Lexer:
             ('RBRACE', r'\}'),
             ('SEMICOLON', r';'),
         ]
-
     def tokenize(self):
         tokens = []
         pos = 0
