@@ -36,3 +36,10 @@ class IntegerLiteral(Node):
 class Identifier(Node):
     def __init__(self, name):
         self.name = name
+
+class ForLoopStatement(Node):
+    def __init__(self, identifier, start_expr, end_expr, body):
+        self.identifier = identifier  # The 'i'
+        self.start_expr = start_expr  # usually 0
+        self.end_expr = end_expr      # the limit
+        self.body = body
