@@ -1,4 +1,4 @@
-from ast_nodes import Program, AssignmentStatement, PrintStatement, BinaryExpression, IntegerLiteral, Identifier
+from ast_nodes import Program, AssignmentStatement, PrintStatement, BinaryExpression, IntegerLiteral, Identifier, ForLoopStatement
 
 class Parser:
     def __init__(self, tokens):
@@ -27,37 +27,70 @@ class Parser:
             statements.append(self.parse_statement())
         return Program(statements)
 
+    def parse_for(self):
+        self.eat('FOR')
+        self.eat('LPAREN')
+        var_name = self.eat('IDENTIFIER').value
+        self.eat('IN')
+        self.eat('RANGE')
+        self.eat('LPAREN')
+        # We'll assume range(end) for simplicity
+        end_val = self.parse_expr() 
+        self.eat('RPAREN')
+        self.eat('RPAREN')
+        
+        self.eat('LBRACE')
+        body = []
+        while self.current().type != 'RBRACE':
+            body.append(self.parse_statement())
+        self.eat('RBRACE')
+        
+        # Default start at 0 for now
+        return ForLoopStatement(Identifier(var_name), IntegerLiteral("0"), end_val, body)
+
     def parse_statement(self):
-        if self.current().type == 'PRINT':
+        t = self.current().type
+        if t == 'PRINT':
             self.eat('PRINT')
-            expr = self.parse_expr()
+            e = self.parse_expr()
             self.eat('SEMICOLON')
-            return PrintStatement(expr)
+            return PrintStatement(e)
+        if t == 'FOR':               # <--- ADD THIS
+            return self.parse_for()
         return self.parse_assignment()
 
-    def parse_assignment(self):
-        # 1. Look for 'given' or 'let'
-        mode = None
-        if self.current().type in ('GIVEN', 'LET'):
-            mode = self.eat(self.current().type).value
-        
-        # 2. Look for 'mass', 'accel', 'force', etc.
-        type_kw = None
-        if self.current().type == 'TYPE_KW':
-            type_kw = self.eat('TYPE_KW').value
-            
-        # 3. Now get the actual variable name (e.g., 'f' or 'm')
-        name_token = self.eat('IDENTIFIER')
-        
-        # 4. Now expect the '='
-        self.eat('EQUALS')
-        
-        # 5. Parse the rest
-        expr = self.parse_expr()
-        self.eat('SEMICOLON')
-        
-        return AssignmentStatement(Identifier(name_token.value), expr, mode, type_kw)
+    def parse_for(self):
+        self.eat('FOR')
+        self.eat('LPAREN')
+        var_name = self.eat('IDENTIFIER').value
+        self.eat('IN')
+        self.eat('RANGE')
+        self.eat('LPAREN')
+        end_val = self.parse_expr()
+        self.eat('RPAREN')
+        self.eat('RPAREN')
+        self.eat('LBRACE')
+        body = []
+        while self.current().type != 'RBRACE':
+            body.append(self.parse_statement())
+        self.eat('RBRACE')
+        return ForLoopStatement(Identifier(var_name), IntegerLiteral("0"), end_val, body)
 
+    def parse_assignment(self):
+        m = self.eat(self.current().type).value if self.current().type in ('GIVEN', 'LET') else None
+        tk = self.eat('TYPE_KW').value if self.current().type == 'TYPE_KW' else None
+        
+        # FIX: Allow 'g' or 'm' to be variable names even if they are units
+        if self.current().type in ('IDENTIFIER', 'UNIT'):
+            name = self.eat(self.current().type).value
+        else:
+            self.eat('IDENTIFIER') # This will trigger the standard error
+            
+        self.eat('EQUALS')
+        e = self.parse_expr()
+        self.eat('SEMICOLON')
+        return AssignmentStatement(Identifier(name), e, m, tk)
+        
     def parse_expr(self):
         node = self.parse_term()
         while self.current().type in ('PLUS', 'MINUS'):
