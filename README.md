@@ -24,7 +24,7 @@ AST (ast_nodes.py): Defines the data structures (nodes) for the Abstract Syntax 
    <br> &nbsp;&nbsp;&nbsp; type_kw       ::= "mass" | "accel" | "velocity" | "length" | "power" | "temp" | "force"
    <br> &nbsp;&nbsp;&nbsp; print_stmt    ::= "print" expression ";"
    <br> &nbsp;&nbsp;&nbsp; expression    ::= term (("+" | "-") term)*
-   <br> &nbsp;&nbsp;&nbsp; term          ::= factor (("*" | "/") factor)*
+   <br> &nbsp;&nbsp;&nbsp; term          ::= factor (("\*" | "/") factor)*
    <br> &nbsp;&nbsp;&nbsp; factor        ::= (NUMBER | TIME) UNIT? | IDENTIFIER | "(" expression ")"
 
 ## How It Should Look:
